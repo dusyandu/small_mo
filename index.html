@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小小莫 · 个人作品集</title>
+<meta name="description" content="小小莫，计算机科学与技术专业大一新生，专注 Python 爬虫与反爬实战，30+ 项目作品集。">
+<style>
+  :root{
+    --bg:#fbfdfc;
+    --card:#ffffff;
+    --ink:#2f3a3a;
+    --ink-soft:#6b7a7a;
+    --line:#e7efee;
+    --brand:#3aa087;          /* 主青绿 */
+    --brand-deep:#2c7d68;
+    --brand-soft:#e6f4f0;
+    --accent:#7cc4b3;
+    --gold:#c9a24e;
+    --shadow:0 6px 24px rgba(46,90,80,.08);
+    --radius:16px;
+    --radius-sm:10px;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Roboto,Helvetica,Arial,sans-serif;
+    background:
+      radial-gradient(1200px 600px at 80% -10%,#eaf6f1 0%,transparent 60%),
+      radial-gradient(900px 500px at -10% 10%,#f0f9f6 0%,transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--brand-deep);text-decoration:none;transition:.2s}
+  a:hover{color:var(--brand)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  /* 顶部导航 */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:saturate(140%) blur(10px);
+    background:rgba(251,253,252,.78);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;color:var(--ink)}
+  .brand .dot{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--accent));box-shadow:0 4px 10px rgba(58,160,135,.35)}
+  .nav-links{display:flex;gap:6px;flex-wrap:wrap}
+  .nav-links a{
+    padding:8px 14px;border-radius:999px;color:var(--ink-soft);font-size:14px;font-weight:500;
+  }
+  .nav-links a:hover{background:var(--brand-soft);color:var(--brand-deep)}
+
+  /* Hero */
+  .hero{padding:72px 0 56px;position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  .hero .tag{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--brand-soft);color:var(--brand-deep);
+    padding:6px 14px;border-radius:999px;font-size:13px;font-weight:600;
+    margin-bottom:18px;
+  }
+  .hero .tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 4px rgba(58,160,135,.18)}
+  .hero h1{font-size:42px;line-height:1.2;letter-spacing:-.5px;margin-bottom:14px}
+  .hero h1 .grad{background:linear-gradient(120deg,var(--brand-deep),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.lead{font-size:17px;color:var(--ink-soft);max-width:520px;margin-bottom:26px}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:12px 22px;border-radius:999px;font-weight:600;font-size:15px;cursor:pointer;
+    transition:transform .15s,box-shadow .2s;
+  }
+  .btn-primary{background:var(--brand);color:#fff;box-shadow:0 8px 20px rgba(58,160,135,.32)}
+  .btn-primary:hover{background:var(--brand-deep);color:#fff;transform:translateY(-2px)}
+  .btn-ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--brand-deep);transform:translateY(-2px)}
+
+  /* Hero 头像 */
+  .hero-right{display:flex;flex-direction:column;align-items:center;gap:20px}
+  .avatar-wrap{position:relative;width:200px;height:200px}
+  .avatar-ring{
+    position:absolute;inset:-6px;border-radius:50%;
+    background:conic-gradient(from 0deg,var(--brand),var(--accent),var(--brand));
+    animation:spin 6s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .avatar{
+    position:relative;width:100%;height:100%;border-radius:50%;
+    object-fit:cover;border:5px solid #fff;box-shadow:0 12px 36px rgba(46,90,80,.22);
+    background:#fff;z-index:1;
+  }
+  .avatar-badge{
+    position:absolute;bottom:8px;right:-4px;z-index:2;
+    background:var(--brand);color:#fff;font-size:12px;font-weight:700;
+    padding:5px 12px;border-radius:999px;box-shadow:0 4px 12px rgba(58,160,135,.4);
+  }
+  .hero-quick-info{
+    display:flex;gap:10px;flex-wrap:wrap;justify-content:center;
+  }
+  .hero-quick-info .chip{font-size:13px;padding:6px 14px}
+
+  /* Hero 卡片（保留作为补充信息卡） */
+  .hero-card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px 24px;box-shadow:var(--shadow);position:relative;width:100%;max-width:380px;
+  }
+  .hero-card .row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--line)}
+  .hero-card .row:last-child{border-bottom:none}
+  .hero-card .k{color:var(--ink-soft);font-size:14px}
+  .hero-card .v{font-weight:600;font-size:14px}
+  .hero-card .badge{position:absolute;top:-12px;right:18px;background:var(--gold);color:#fff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px}
+
+  /* 区块通用 */
+  section{padding:56px 0}
+  .sec-head{margin-bottom:28px}
+  .sec-head .kicker{color:var(--brand);font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase}
+  .sec-head h2{font-size:28px;letter-spacing:-.3px;margin-top:6px}
+  .sec-head p{color:var(--ink-soft);margin-top:8px;font-size:15px}
+
+  /* 关于我 */
+  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:32px}
+  .about-text{font-size:16px;color:var(--ink)}
+  .about-text p{margin-bottom:14px}
+  .quote{
+    background:var(--brand-soft);border-left:4px solid var(--brand);
+    padding:18px 22px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+    color:var(--brand-deep);font-weight:600;
+  }
+  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .stat{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);
+    padding:20px;text-align:center;box-shadow:var(--shadow);
+  }
+  .stat .num{font-size:30px;font-weight:800;color:var(--brand-deep)}
+  .stat .lbl{font-size:13px;color:var(--ink-soft);margin-top:4px}
+
+  /* 技能栈 */
+  .skill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+  .skill-card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s;
+  }
+  .skill-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(46,90,80,.14)}
+  .skill-card .ico{width:40px;height:40px;border-radius:12px;background:var(--brand-soft);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px}
+  .skill-card h3{font-size:17px;margin-bottom:8px}
+  .skill-card p{font-size:14px;color:var(--ink-soft)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+  .chip{background:var(--brand-soft);color:var(--brand-deep);font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px}
+
+  /* 项目 */
+  .cat{margin-bottom:36px}
+  .cat-head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .cat-num{
+    width:36px;height:36px;border-radius:10px;
+    background:linear-gradient(135deg,var(--brand),var(--accent));color:#fff;
+    font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px;
+    box-shadow:0 6px 14px rgba(58,160,135,.32);
+  }
+  .cat-title{font-size:20px;font-weight:700}
+  .cat-star{color:var(--gold);font-size:14px;font-weight:600;margin-left:6px}
+  .cat-desc{color:var(--ink-soft);font-size:14px;margin-bottom:14px}
+  .proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+  .proj{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);
+    padding:16px 18px;transition:transform .15s,border-color .2s,box-shadow .2s;
+  }
+  .proj:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:var(--shadow)}
+  .proj.highlight{
+    border-color:var(--brand);background:linear-gradient(180deg,#f4fbf8,#ffffff);
+  }
+  .proj .name{font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  .proj .name .star{color:var(--gold)}
+  .proj .desc{font-size:13px;color:var(--ink-soft);margin-bottom:8px}
+  .proj .tags{display:flex;flex-wrap:wrap;gap:6px}
+  .tag-pill{font-size:11px;padding:3px 8px;border-radius:6px;background:#f1f5f4;color:var(--ink-soft)}
+  .proj .link{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:600;margin-top:10px}
+
+  /* 联系 */
+  .contact-card{
+    background:linear-gradient(135deg,var(--brand-deep),var(--brand));
+    color:#fff;border-radius:var(--radius);padding:40px;box-shadow:0 12px 36px rgba(44,125,104,.28);
+    text-align:center;
+  }
+  .contact-card h2{color:#fff;font-size:26px;margin-bottom:10px}
+  .contact-card p{color:rgba(255,255,255,.85);max-width:560px;margin:0 auto 24px}
+  .contact-list{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .contact-item{
+    background:rgba(255,255,255,.14);backdrop-filter:blur(6px);
+    border:1px solid rgba(255,255,255,.22);
+    padding:14px 22px;border-radius:var(--radius-sm);color:#fff;font-weight:600;
+    display:inline-flex;align-items:center;gap:10px;transition:.2s;
+  }
+  .contact-item:hover{background:rgba(255,255,255,.24);transform:translateY(-2px)}
+  .contact-item .ico{font-size:18px}
+
+  /* 页脚 */
+  footer{padding:36px 0;border-top:1px solid var(--line);text-align:center;color:var(--ink-soft);font-size:13px}
+  footer a{color:var(--brand-deep)}
+
+  /* 入场动画 */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* 响应式 */
+  @media (max-width:860px){
+    .hero-grid,.about-grid{grid-template-columns:1fr;gap:32px}
+    .hero h1{font-size:34px}
+    .nav-links{display:none}
+    .hero{padding:48px 0 40px}
+  }
+</style>
+</head>
+<body>
+
+<!-- 导航 -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <div class="brand"><span class="dot"></span> 小小莫 · 作品集</div>
+    <nav class="nav-links">
+      <a href="#about">关于我</a>
+      <a href="#skills">技能栈</a>
+      <a href="#projects">项目作品</a>
+      <a href="#contact">联系</a>
+      <a href="https://gitee.com/smallsmall_mo/small_mo" target="_blank" rel="noopener">Gitee ↗</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <span class="tag">2026 级 · 计算机科学与技术</span>
+      <h1>你好，我是 <span class="grad">小小莫</span><br>专注 Python 爬虫与反爬实战</h1>
+      <p class="lead">大一新生，热爱用代码解决数据采集难题。从静态页解析到三层引擎降级、从验证码破解到签名算法逆向，已沉淀 30+ 实战项目。技术路还在探索，但爬虫是我目前最扎实的护城河。</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#projects">查看作品 ↗</a>
+        <a class="btn btn-ghost" href="https://gitee.com/smallsmall_mo/small_mo" target="_blank" rel="noopener">Gitee 仓库</a>
+      </div>
+    </div>
+    <div class="hero-right reveal">
+      <div class="avatar-wrap">
+        <div class="avatar-ring"></div>
+        <img class="avatar" src="assets/avatar.png" alt="小小莫 头像" onerror="this.style.display='none';this.parentElement.querySelector('.avatar-ring').style.display='none'">
+        <span class="avatar-badge">在校生</span>
+      </div>
+      <div class="hero-quick-info">
+        <span class="chip">Python 爬虫</span>
+        <span class="chip">反爬对抗</span>
+        <span class="chip">30+ 项目</span>
+      </div>
+      <div class="hero-card">
+        <div class="row"><span class="k">称呼</span><span class="v">小小莫</span></div>
+        <div class="row"><span class="k">专业</span><span class="v">计算机科学与技术</span></div>
+        <div class="row"><span class="k">入学</span><span class="v">2026 级（大一）</span></div>
+        <div class="row"><span class="k">主攻方向</span><span class="v">Python 爬虫 / 反爬</span></div>
+        <div class="row"><span class="k">作品数量</span><span class="v">30+ 个</span></div>
+        <div class="row"><span class="k">代码仓库</span><span class="v"><a href="https://gitee.com/smallsmall_mo/small_mo" target="_blank" rel="noopener">gitee / small_mo ↗</a></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 关于我 -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">About Me</div>
+      <h2>关于我</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>我是小小莫，一名 2026 级计算机科学与技术专业的大一新生。和很多从课本入门的同学不同，我选择了「以战代练」——从大一开始就把每个知识点都落到一个能跑起来的爬虫项目里。</p>
+        <p>目前我最擅长的是 <strong>Python 爬虫与反爬对抗</strong>：从最基础的 requests 静态页解析，到 DrissionPage / Playwright 浏览器自动化，再到 Scrapling 三层引擎自动降级、超级鹰 + CDP 验证码全场景破解、闲鱼 mtop 签名算法逆向，我都有从零到一的完整实战经验。</p>
+        <p>未来的路我还在探索——后端开发、自动化测试、数据分析都是我感兴趣的方向。但无论最终深耕哪个领域，扎实的工程能力、对底层协议的理解、以及「把东西做出来并跑稳」的韧劲，是我现在持续打磨的底子。</p>
+        <div class="quote">「以战代练，先把东西做出来跑稳，再回头补理论。」</div>
+      </div>
+      <div class="stats reveal">
+        <div class="stat"><div class="num">30+</div><div class="lbl">实战项目</div></div>
+        <div class="stat"><div class="num">8</div><div class="lbl">技术分类</div></div>
+        <div class="stat"><div class="num">3</div><div class="lbl">亮点作品</div></div>
+        <div class="stat"><div class="num">4年</div><div class="lbl">到毕业打磨期</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 技能栈 -->
+<section id="skills" style="background:linear-gradient(180deg,transparent,#f4faf7 40%,#f4faf7 60%,transparent)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Tech Stack</div>
+      <h2>技能栈</h2>
+      <p>围绕「数据采集 → 反爬对抗 → 落盘分析」全链路积累的工具与框架。</p>
+    </div>
+    <div class="skill-grid">
+      <div class="skill-card reveal">
+        <div class="ico">🐍</div>
+        <h3>Python 核心</h3>
+        <p>熟练使用 Python 进行工程化开发，注重代码稳定性与向后兼容。</p>
+        <div class="chips"><span class="chip">基础语法</span><span class="chip">面向对象</span><span class="chip">多线程</span><span class="chip">异常处理</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="ico">🌐</div>
+        <h3>HTTP 请求</h3>
+        <p>掌握多种 HTTP 客户端，能针对反爬场景选择合适的指纹与协议。</p>
+        <div class="chips"><span class="chip">requests</span><span class="chip">curl_cffi</span><span class="chip">httpx</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="ico">🤖</div>
+        <h3>浏览器自动化</h3>
+        <p>三套主流框架实战经验，CDP 协议底层操控，应对动态渲染与登录态。</p>
+        <div class="chips"><span class="chip">DrissionPage</span><span class="chip">Playwright</span><span class="chip">Patchright</span><span class="chip">Selenium</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="ico">🛡️</div>
+        <h3>反爬框架</h3>
+        <p>Scrapling 三层引擎：Fetcher / StealthyFetcher / Adaptive 自适应解析。</p>
+        <div class="chips"><span class="chip">Scrapling</span><span class="chip">三层降级</span><span class="chip">自适应解析</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="ico">🔐</div>
+        <h3>验证码破解</h3>
+        <p>极验点选/滑块全场景，超级鹰 API，CDP 真人轨迹，贝塞尔曲线拖拽。</p>
+        <div class="chips"><span class="chip">超级鹰</span><span class="chip">PIL 图像处理</span><span class="chip">CDP 鼠标事件</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="ico">🎬</div>
+        <h3>音视频处理</h3>
+        <p>DASH 流并发下载，ffmpeg 无损合并，moviepy 视频剪辑。</p>
+        <div class="chips"><span class="chip">ffmpeg</span><span class="chip">moviepy</span><span class="chip">imageio-ffmpeg</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="ico">🖥️</div>
+        <h3>GUI 开发</h3>
+        <p>Tkinter / ttk 桌面应用，线程安全消息总线，进度追踪与实时日志。</p>
+        <div class="chips"><span class="chip">Tkinter</span><span class="chip">ttk</span><span class="chip">queue 消息总线</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="ico">📊</div>
+        <h3>数据分析可视化</h3>
+        <p>从采集到分析到可视化的完整数据闭环，动态大屏与交互图表。</p>
+        <div class="chips"><span class="chip">pandas</span><span class="chip">pyecharts</span><span class="chip">jsonpath</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="ico">🔄</div>
+        <h3>逆向工程</h3>
+        <p>签名算法还原，token 提取与滚动刷新，mtop 协议逆向。</p>
+        <div class="chips"><span class="chip">hashlib</span><span class="chip">sign 算法</span><span class="chip">MD5</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="ico">📦</div>
+        <h3>版本控制</h3>
+        <p>Git 工程化实践，仓库分类组织，README 文档撰写。</p>
+        <div class="chips"><span class="chip">Git</span><span class="chip">Gitee</span><span class="chip">PyCharm</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 项目作品 -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Projects</div>
+      <h2>项目作品</h2>
+      <p>按技术能力分类组织，⭐ 标记为亮点作品，共 30+ 个项目。完整代码见 <a href="https://gitee.com/smallsmall_mo/small_mo" target="_blank" rel="noopener">Gitee 仓库 ↗</a></p>
+    </div>
+
+    <!-- 01 -->
+    <div class="cat reveal">
+      <div class="cat-head">
+        <div class="cat-num">01</div>
+        <div class="cat-title">反爬与验证码破解 <span class="cat-star">⭐ 亮点</span></div>
+      </div>
+      <div class="cat-desc">验证码自动破解模块，覆盖极验点选（文字/图标/语序）、极验滑块（拼图/缺口）、普通图文验证码。</div>
+      <div class="proj-grid">
+        <div class="proj highlight">
+          <div class="name"><span class="star">⭐</span> captcha_solver.py</div>
+          <div class="desc">通用验证码破解模块，保留原 demo4 调用接口完全兼容，内嵌完整超级鹰客户端。</div>
+          <div class="tags">
+            <span class="tag-pill">极验点选/滑块</span>
+            <span class="tag-pill">CDP 三版点击</span>
+            <span class="tag-pill">贝塞尔轨迹</span>
+            <span class="tag-pill">27 种 codetype</span>
+          </div>
+          <a class="link" href="https://gitee.com/smallsmall_mo/small_mo/blob/master/01-反爬与验证码破解/captcha_solver.py" target="_blank" rel="noopener">查看代码 ↗</a>
+        </div>
+        <div class="proj">
+          <div class="name">chaojiying_helper_max.py</div>
+          <div class="desc">超级鹰增强版客户端，含图片拼接 build_composite 与双中心点滑块定位。</div>
+          <div class="tags"><span class="tag-pill">build_composite</span><span class="tag-pill">locate_gap_two_points</span></div>
+        </div>
+        <div class="proj">
+          <div class="name">chaojiying.py</div>
+          <div class="desc">超级鹰客户端基础版。</div>
+          <div class="tags"><span class="tag-pill">超级鹰 API</span></div>
+        </div>
+        <div class="proj">
+          <div class="name">运行展示知乎登录验证.py</div>
+          <div class="desc">知乎登录验证码实战。</div>
+          <div class="tags"><span class="tag-pill">登录态</span><span class="tag-pill">点选验证</span></div>
+        </div>
+        <div class="proj">
+          <div class="name">滑块验证码识别 / 文字定位验证</div>
+          <div class="desc">滑块缺口识别与点选文字定位示例。</div>
+          <div class="tags"><span class="tag-pill">滑块</span><span class="tag-pill">点选</span></div>
+        </div>
+        <div class="proj">
+          <div class="name">图片验证码识别 / add_image</div>
+          <div class="desc">图文验证码识别与图片拼接辅助工具。</div>
+          <div class="tags"><span class="tag-pill">PIL</span><span class="tag-pill">图像处理</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="cat reveal">
+      <div class="cat-head">
+        <div class="cat-num">02</div>
+        <div class="cat-title">接口爬取与下载</div>
+      </div>
+      <div class="cat-desc">基于 HTTP 接口的数据抓取与资源下载。</div>
+      <div class="proj-grid">
+        <div class="proj">
+          <div class="name">b站视频下载.py</div>
+          <div class="desc">B 站视频下载 + moviepy 合并。</div>
+          <div class="tags"><span class="tag-pill">接口解析</span><span class="tag-pill">moviepy</span></div>
+        </div>
+        <div class="proj">
+          <div class="name">批量爬取壁纸.py</div>
+          <div class="desc">壁纸批量下载，接口请求 + 文件流写入。</div>
+          <div class="tags"><span class="tag-pill">文件流</span></div>
+        </div>
+        <div class="proj">
+          <div class="name">小说下载.py</div>
+          <div class="desc">小说章节抓取，章节列表遍历 + 文本拼接。</div>
+          <div class="tags"><span class="tag-pill">遍历</span><span class="tag-pill">文本拼接</span></div>
+        </div>
+        <div class="proj">
+          <div class="name">音乐下载.py</div>
+          <div class="desc">音乐资源下载，接口抓取 + 音频下载。</div>
+          <div class="tags"><span class="tag-pill">音频下载</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="cat reveal">
+      <div class="cat-head">
+        <div class="cat-num">03</div>
+        <div class="cat-title">浏览器自动化与社交平台</div>
+      </div>
+      <div class="cat-desc">基于 DrissionPage 的浏览器自动化采集，针对动态渲染与需要登录态的社交平台。</div>
+      <div class="proj-grid">
+        <div class="proj">
+          <div class="name">小红书数据提取.py</div>
+          <div class="desc">小红书笔记数据提取。</div>
+          <div class="tags"><span class="tag-pill">DrissionPage</span><span class="tag-pill">动态渲染</span></div>
+        </div>
+        <div class="proj">
+          <div class="name">猪八戒数据获取.py</div>
+          <div class="desc">猪八戒网服务/任务数据采集。</div>
+          <div class="tags"><span class="tag-pill">登录态</span></div>
+        </div>
+        <div class="proj">
+          <div class="name">猿急送数据获取.py</div>
+          <div class="desc">猿急送技术服务数据采集。</div>
+          <div class="tags"><span class="tag-pill">CDP</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="cat reveal">
+      <div class="cat-head">
+        <div class="cat-num">04</div>
+        <div class="cat-title">逆向算法与高阶反爬 <span class="cat-star">⭐ 亮点</span></div>
+      </div>
+      <div class="cat-desc">闲鱼搜索接口 sign 签名算法逆向，阿里 mtop 协议破解。</div>
+      <div class="proj-grid">
+        <div class="proj highlight">
+          <div class="name"><span class="star">⭐</span> 闲鱼数据获取.py</div>
+          <div class="desc">逆向闲鱼 mtop sign 签名算法：提取 _m_h5_tk token + 时间戳 + appKey + data，MD5 生成签名。</div>
+          <div class="tags">
+            <span class="tag-pill">sign 算法逆向</span>
+            <span class="tag-pill">_m_h5_tk token</span>
+            <span class="tag-pill">MD5</span>
+            <span class="tag-pill">mtop 协议</span>
+            <span class="tag-pill">jsonpath</span>
+          </div>
+          <a class="link" href="https://gitee.com/smallsmall_mo/small_mo/blob/master/04-逆向算法与高阶反爬/闲鱼数据获取.py" target="_blank" rel="noopener">查看代码 ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="cat reveal">
+      <div class="cat-head">
+        <div class="cat-num">05</div>
+        <div class="cat-title">商品价格监控</div>
+      </div>
+      <div class="cat-desc">电商商品价格监控 + 微信推送 + 定时任务调度。</div>
+      <div class="proj-grid">
+        <div class="proj">
+          <div class="name">监控京东商品价格.py</div>
+          <div class="desc">京东商品价格监控，接口抓取 + 阈值告警。</div>
+          <div class="tags"><span class="tag-pill">阈值告警</span></div>
+        </div>
+        <div class="proj">
+          <div class="name">监控淘宝商品价格.py</div>
+          <div class="desc">淘宝/天猫价格监控 + Server酱微信推送。</div>
+          <div class="tags"><span class="tag-pill">DrissionPage</span><span class="tag-pill">Server酱</span></div>
+        </div>
+        <div class="proj">
+          <div class="name">自动结束定时任务/</div>
+          <div class="desc">京东/淘宝定时监控 + 超时自动收尾，避免僵尸进程。</div>
+          <div class="tags"><span class="tag-pill">定时调度</span><span class="tag-pill">任务编排</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div class="cat reveal">
+      <div class="cat-head">
+        <div class="cat-num">06</div>
+        <div class="cat-title">数据分析与可视化</div>
+      </div>
+      <div class="cat-desc">爬虫数据落盘后的分析与可视化呈现，完整数据闭环。</div>
+      <div class="proj-grid">
+        <div class="proj">
+          <div class="name">生成可视化大屏.py</div>
+          <div class="desc">兼职岗位数据可视化大屏。</div>
+          <div class="tags"><span class="tag-pill">pyecharts</span></div>
+        </div>
+        <div class="proj">
+          <div class="name">考研数据分析/</div>
+          <div class="desc">AI 院校分析 + 历年数据采集 + 数据分析服务。</div>
+          <div class="tags"><span class="tag-pill">AI 分析</span><span class="tag-pill">数据采集</span></div>
+        </div>
+        <div class="proj">
+          <div class="name">考研数据可视化/</div>
+          <div class="desc">动态图表展示 + 静态可视化绘图。</div>
+          <div class="tags"><span class="tag-pill">动态图表</span><span class="tag-pill">绘图</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <div class="cat reveal">
+      <div class="cat-head">
+        <div class="cat-num">07</div>
+        <div class="cat-title">反爬避坑实战</div>
+      </div>
+      <div class="cat-desc">渐进式反爬实战 demo，由浅入深覆盖常见反爬场景，是一条由易到难的爬虫学习路线。</div>
+      <div class="proj-grid">
+        <div class="proj">
+          <div class="name">demo1 贝壳二手房数据获取.py</div>
+          <div class="desc">静态页解析入门，requests + HTML 解析。</div>
+          <div class="tags"><span class="tag-pill">静态页</span></div>
+        </div>
+        <div class="proj">
+          <div class="name">demo2 页面滚动.py</div>
+          <div class="desc">滚动加载，动态渲染 + 滚动触发的异步内容。</div>
+          <div class="tags"><span class="tag-pill">动态渲染</span></div>
+        </div>
+        <div class="proj">
+          <div class="name">demo3 验证码识别.py</div>
+          <div class="desc">验证码识别实战。</div>
+          <div class="tags"><span class="tag-pill">验证码</span></div>
+        </div>
+        <div class="proj">
+          <div class="name">demo4 多页数据获取.py</div>
+          <div class="desc">多页翻页 + 鉴权 + 多页连续采集。</div>
+          <div class="tags"><span class="tag-pill">翻页</span><span class="tag-pill">鉴权</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 99 -->
+    <div class="cat reveal">
+      <div class="cat-head">
+        <div class="cat-num">99</div>
+        <div class="cat-title">进阶整合 · Scrapling 三层引擎 <span class="cat-star">⭐⭐ 核心亮点</span></div>
+      </div>
+      <div class="cat-desc">基于 Scrapling 框架的 B站视频下载 GUI，集成三层引擎自动降级、DASH 音视频并发下载、ffmpeg 无损合并、Tkinter 图形界面。</div>
+      <div class="proj-grid">
+        <div class="proj highlight">
+          <div class="name"><span class="star">⭐⭐</span> 哔哩哔哩强爬取.py</div>
+          <div class="desc">三层引擎自动降级：Fetcher (HTTP) → StealthyFetcher (Patchright 隐形浏览器) → Adaptive Parser (自适应解析)。DASH 音视频并发下载 + ffmpeg 无损合并 + Tkinter GUI。</div>
+          <div class="tags">
+            <span class="tag-pill">三层降级</span>
+            <span class="tag-pill">Scrapling</span>
+            <span class="tag-pill">Patchright</span>
+            <span class="tag-pill">DASH 并发下载</span>
+            <span class="tag-pill">ffmpeg 无损合并</span>
+            <span class="tag-pill">Tkinter GUI</span>
+            <span class="tag-pill">线程安全</span>
+          </div>
+          <a class="link" href="https://gitee.com/smallsmall_mo/small_mo/blob/master/99-进阶整合-Scrapling三层引擎/哔哩哔哩强爬取.py" target="_blank" rel="noopener">查看代码 ↗</a>
+        </div>
+        <div class="proj">
+          <div class="name">b站爬取视频.py</div>
+          <div class="desc">B站视频下载基础版（moviepy 合并），强爬取的迭代前身。</div>
+          <div class="tags"><span class="tag-pill">moviepy</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 联系 -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-card reveal">
+      <h2>欢迎联系与交流</h2>
+      <p>无论是技术交流、项目合作还是实习机会，都欢迎通过以下方式找到我。代码作品请移步 Gitee 仓库查看完整源码。</p>
+      <div class="contact-list">
+        <a class="contact-item" href="mailto:3032847459@qq.com">
+          <span class="ico">✉️</span> 3032847459@qq.com
+        </a>
+        <a class="contact-item" href="https://gitee.com/smallsmall_mo/small_mo" target="_blank" rel="noopener">
+          <span class="ico">📦</span> Gitee 仓库
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 页脚 -->
+<footer>
+  <div class="wrap">
+    <p>© 2026 小小莫 · 个人作品集 · <a href="https://gitee.com/smallsmall_mo/small_mo" target="_blank" rel="noopener">gitee.com/smallsmall_mo</a></p>
+    <p style="margin-top:6px;opacity:.7">本站为静态作品展示页，所有项目代码均已在 Gitee 公开，遵守 MIT 协议与目标网站 robots.txt 规范。</p>
+  </div>
+</footer>
+
+<script>
+  // 滚动入场动画
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // 导航当前高亮（简易）
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  navLinks.forEach(a => a.addEventListener('click', () => {
+    navLinks.forEach(x => x.style.background = '');
+    a.style.background = 'var(--brand-soft)';
+  }));
+</script>
+</body>
+</html>
