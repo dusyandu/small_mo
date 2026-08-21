@@ -1,0 +1,25 @@
+# IDE
+.idea/
+.vscode/
+__pycache__/
+*.pyc
+*.pyo
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 凭证/敏感（按规范绝不入库）
+.env
+*.key
+config/local_settings.py
+
+# 运行产物
+*.mp4
+*.mp3
+*.flv
+*.csv
+output/
+downloads/
+screenshots/
+logs/
