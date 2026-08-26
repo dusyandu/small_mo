@@ -172,7 +172,7 @@ class OJCrawler:
     # ============================================================
     def get_problem_detail(self, problem_id: int) -> Dict:
         """
-        获取单道题目的详情（描述/输入/输出）
+        获取单道题目的详情（描述/输入/输出 + 样例输入/输出）
 
         Args:
             problem_id: 题目ID（如 2098）
@@ -184,6 +184,8 @@ class OJCrawler:
                 "description": "美国总统奥巴马...",
                 "input": "输入在一行中给出...",
                 "output": "输出由给定字符C...",
+                "sample_input": "10 a",
+                "sample_output": "aaaaaaaaaa\n...",
                 "url": "http://39.106.228.241/every_do_problem.php?id=2098"
             }
         """
@@ -211,16 +213,26 @@ class OJCrawler:
         input_desc = contents[1].text.strip() if len(contents) > 1 else ""
         output_desc = contents[2].text.strip() if len(contents) > 2 else ""
 
+        # ★ 样例输入/输出：在 <pre> 标签里（PTA 风格页面）
+        #   pre[0] = 样例输入，pre[1] = 样例输出；统一 \r\n -> \n
+        pres = self.session.eles('xpath://pre')
+        sample_input = pres[0].text.replace("\r\n", "\n").strip() if len(pres) > 0 else ""
+        sample_output = pres[1].text.replace("\r\n", "\n").strip() if len(pres) > 1 else ""
+
         result = {
             "id": problem_id,
             "title": title,
             "description": description,
             "input": input_desc,
             "output": output_desc,
+            "sample_input": sample_input,
+            "sample_output": sample_output,
             "url": url,
         }
         print(f"  标题: {title}")
         print(f"  描述: {description[:50]}...")
+        print(f"  样例输入: {sample_input[:50]}")
+        print(f"  样例输出: {sample_output[:50]}")
         return result
 
     # ============================================================

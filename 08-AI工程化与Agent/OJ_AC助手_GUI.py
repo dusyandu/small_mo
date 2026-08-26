@@ -83,13 +83,20 @@ def get_problem_by_id(problem_id: int) -> str:
     bus.put("status", "正在爬取题目...")
     try:
         detail = _crawler.get_problem_detail(problem_id)
-        text = (
+        # 拼成给 LLM 看的文本（含样例输入/输出，提升生成代码正确率）
+        parts = [
             f"题号: {detail['id']}\n"
             f"标题: {detail['title']}\n\n"
             f"【题目描述】\n{detail['description']}\n\n"
             f"【输入描述】\n{detail['input']}\n\n"
-            f"【输出描述】\n{detail['output']}\n"
-        )
+            f"【输出描述】\n{detail['output']}",
+        ]
+        # 样例非空才加入（避免空样例占位）
+        if detail.get("sample_input"):
+            parts.append(f"【样例输入】\n{detail['sample_input']}")
+        if detail.get("sample_output"):
+            parts.append(f"【样例输出】\n{detail['sample_output']}")
+        text = "\n\n".join(parts) + "\n"
         bus.put("log", f"[{datetime.now():%H:%M:%S}] ✓ 爬取成功：{detail['title']}")
         bus.put("problem", text)
         return text

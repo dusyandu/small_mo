@@ -60,14 +60,20 @@ def get_problem_by_id(problem_id: int) -> str:
     """
     try:
         detail = _crawler.get_problem_detail(problem_id)
-        # 拼成给 LLM 看的文本
+        # 拼成给 LLM 看的文本（含样例输入/输出，提升生成代码正确率）
         text = (
             f"题号: {detail['id']}\n"
-            f"标题: {detail['title']}\n"
-            f"题目描述: {detail['description']}\n\n"
-            f"输入描述: {detail['input']}\n\n"
-            f"输出描述: {detail['output']}\n"
+            f"标题: {detail['title']}\n\n"
+            f"【题目描述】\n{detail['description']}\n\n"
+            f"【输入描述】\n{detail['input']}\n\n"
+            f"【输出描述】\n{detail['output']}"
         )
+        # 样例非空才加入（避免空样例占位）
+        if detail.get("sample_input"):
+            text += f"\n\n【样例输入】\n{detail['sample_input']}"
+        if detail.get("sample_output"):
+            text += f"\n\n【样例输出】\n{detail['sample_output']}"
+        text += "\n"
         return text
     except Exception as e:
         return f"爬取题目 {problem_id} 失败: {e}"
