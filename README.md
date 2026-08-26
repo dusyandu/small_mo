@@ -14,6 +14,7 @@ small_mo/
 ├── 05-商品价格监控/             京东 / 淘宝 价格监控 + 定时任务
 ├── 06-数据分析与可视化/          考研 / 兼职 数据分析与动态可视化大屏
 ├── 07-反爬避坑实战/             demo1~demo4 渐进式反爬实战
+├── 08-AI工程化与Agent/          ⭐ LangChain Agent + OJ 自动解题 + Tkinter GUI
 └── 99-进阶整合-Scrapling三层引擎/ ⭐⭐ Scrapling 三层引擎 + B站 DASH 下载 GUI
 ```
 
@@ -22,6 +23,7 @@ small_mo/
 | 目录 | 文件 | 技术亮点 |
 |------|------|----------|
 | `01-反爬与验证码破解` | [captcha_solver.py](01-反爬与验证码破解/README.md) | 超级鹰 + CDP 三版点击 + 极验点选/滑块全场景 + 贝塞尔轨迹 |
+| `08-AI工程化与Agent` | [OJ_AC助手_GUI.py](08-AI工程化与Agent/README.md) | LangChain create_agent + 爬虫工具封装 + 后台线程消息总线 GUI |
 | `99-进阶整合-Scrapling三层引擎` | [哔哩哔哩强爬取.py](99-进阶整合-Scrapling三层引擎/README.md) | Fetcher→StealthyFetcher→Adaptive 三层降级 + DASH 并发下载 + Tkinter GUI |
 | `04-逆向算法与高阶反爬` | [闲鱼数据获取.py](04-逆向算法与高阶反爬/README.md) | _m_h5_tk token 提取 + sign MD5 算法逆向 + mtop 接口 |
 
@@ -61,6 +63,12 @@ small_mo/
 - `demo3验证码识别.py` — 验证码识别实战
 - `demo4多页数据获取.py` — 多页翻页 + 鉴权
 
+### 08-AI工程化与Agent ⭐
+基于 LangChain 1.0+ 的 OJ 自动解题 Agent，输入题号即可自动爬取题目并给出解题思路 + Python 参考代码 + 复杂度分析。集成爬虫工具封装、超级鹰验证码识别、Tkinter GUI 与后台线程消息总线。详见 [该目录 README](08-AI工程化与Agent/README.md)。
+- `OJ_AC助手_GUI.py` — GUI 主程序（Tkinter 多分区 + ThreadPoolExecutor + queue 消息总线）
+- `OJ_AC助手_Agent.py` — Agent 核心（@tool 工具封装 + create_agent + CLI 交互）
+- `OJ题单爬虫.py` — 爬虫引擎（SessionPage 三层爬取）
+
 ### 99-进阶整合-Scrapling三层引擎 ⭐⭐
 基于 Scrapling 框架的 B站视频下载 GUI，集成三层引擎自动降级、DASH 音视频并发下载、ffmpeg 无损合并、Tkinter 图形界面。详见 [该目录 README](99-进阶整合-Scrapling三层引擎/README.md)。
 
@@ -76,6 +84,7 @@ small_mo/
 | GUI | Tkinter / ttk |
 | 数据分析 | pandas, pyecharts, jsonpath |
 | 逆向 | hashlib (MD5), sign 算法还原 |
+| AI Agent | LangChain 1.0+ (create_agent, @tool), 智谱 GLM-4-Flash |
 
 ## 使用说明
 

@@ -1,0 +1,14 @@
+# OJ AC 助手 Agent 依赖
+# LangChain 1.0+ 框架
+langchain>=1.0.0
+langchain-openai>=1.0.0
+langchain-core>=1.0.0
+
+# 环境变量
+python-dotenv>=1.0.0
+
+# 爬虫引擎（OJ题单爬虫.py 使用 SessionPage 无浏览器模式）
+DrissionPage>=4.1.0
+
+# 验证码识别（超级鹰 HTTP 接口，可选）
+requests>=2.20.0
